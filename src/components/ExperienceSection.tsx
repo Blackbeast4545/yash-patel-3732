@@ -1,6 +1,5 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase } from "lucide-react";
 
 const experiences = [
   {
@@ -74,22 +73,35 @@ const ExperienceSection = () => {
         </motion.div>
 
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-[19px] top-2 bottom-2 w-px bg-border" />
+          {/* Animated timeline line */}
+          <motion.div
+            initial={{ height: 0 }}
+            animate={inView ? { height: "100%" } : {}}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="absolute left-[19px] top-2 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent"
+          />
 
           <div className="space-y-12">
             {experiences.map((exp, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.12 * i }}
+                transition={{ duration: 0.6, delay: 0.2 * i }}
                 className="relative pl-12"
               >
-                {/* Dot */}
-                <div className="absolute left-[12px] top-1.5 w-[15px] h-[15px] rounded-full border-[3px] border-primary bg-background" />
+                {/* Animated dot */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={inView ? { scale: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.2 * i + 0.2, type: "spring", stiffness: 300 }}
+                  className="absolute left-[12px] top-1.5 w-[15px] h-[15px] rounded-full border-[3px] border-primary bg-background"
+                />
 
-                <div className="p-6 rounded-xl bg-card border border-border card-hover">
+                <motion.div
+                  whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                  className="p-6 rounded-xl bg-card border border-border hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                >
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
                     <div>
                       <h3 className="font-heading font-semibold text-lg text-foreground">{exp.title}</h3>
@@ -101,13 +113,19 @@ const ExperienceSection = () => {
                   </div>
                   <ul className="space-y-2">
                     {exp.highlights.map((h, j) => (
-                      <li key={j} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <motion.li
+                        key={j}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.3, delay: 0.2 * i + 0.05 * j + 0.3 }}
+                        className="text-sm text-muted-foreground flex items-start gap-2"
+                      >
                         <span className="w-1.5 h-1.5 rounded-full bg-primary/50 mt-1.5 shrink-0" />
                         {h}
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               </motion.div>
             ))}
           </div>

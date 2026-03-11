@@ -32,14 +32,19 @@ const CertificationsSection = () => {
           {certs.map((cert, i) => (
             <motion.div
               key={cert.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="flex items-center gap-4 p-5 rounded-xl bg-card border border-border card-hover"
+              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.12 * i }}
+              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+              className="flex items-center gap-4 p-5 rounded-xl bg-card border border-border hover:border-cyber-green/30 hover:shadow-lg hover:shadow-cyber-green/5 transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-xl bg-cyber-green/10 flex items-center justify-center shrink-0">
+              <motion.div
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+                className="w-12 h-12 rounded-xl bg-cyber-green/10 flex items-center justify-center shrink-0"
+              >
                 <Award className="w-6 h-6 text-cyber-green" />
-              </div>
+              </motion.div>
               <div>
                 <h3 className="font-heading font-semibold text-foreground">{cert.title}</h3>
                 <p className="text-sm text-muted-foreground">{cert.subtitle}</p>
