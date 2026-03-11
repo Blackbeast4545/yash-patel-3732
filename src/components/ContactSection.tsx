@@ -7,8 +7,15 @@ const ContactSection = () => {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="section-padding">
-      <div className="max-w-3xl mx-auto text-center" ref={ref}>
+    <section id="contact" className="section-padding relative overflow-hidden">
+      {/* Ambient glow */}
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
+        transition={{ duration: 6, repeat: Infinity }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary/10 blur-[150px]"
+      />
+
+      <div className="max-w-3xl mx-auto text-center relative z-10" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -29,24 +36,28 @@ const ContactSection = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
             href="mailto:yahp0483@gmail.com"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium text-sm glow-button"
           >
             <Mail className="w-4 h-4" />
             yahp0483@gmail.com
             <ArrowUpRight className="w-4 h-4" />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
             href="https://linkedin.com/in/yash-patel"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-card text-foreground font-medium text-sm card-hover"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-card text-foreground font-medium text-sm hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
           >
             <Linkedin className="w-4 h-4" />
             LinkedIn
             <ArrowUpRight className="w-4 h-4" />
-          </a>
+          </motion.a>
         </motion.div>
 
         <motion.div
@@ -55,7 +66,9 @@ const ContactSection = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex items-center justify-center gap-2 text-sm text-muted-foreground"
         >
-          <MapPin className="w-4 h-4" />
+          <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+            <MapPin className="w-4 h-4" />
+          </motion.div>
           Ahmedabad, India
         </motion.div>
       </div>

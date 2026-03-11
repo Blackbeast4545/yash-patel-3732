@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ExternalLink, Activity, BarChart3, Network } from "lucide-react";
+import { Activity, BarChart3, Network } from "lucide-react";
 
 const projects = [
   {
@@ -46,25 +46,38 @@ const ProjectsSection = () => {
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.12 * i }}
-              className="group p-6 rounded-xl bg-card border border-border card-hover flex flex-col"
+              initial={{ opacity: 0, y: 40, rotateX: 10 }}
+              animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 * i }}
+              whileHover={{ y: -10, transition: { duration: 0.25 } }}
+              className="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 flex flex-col relative overflow-hidden"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
-                <project.icon className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-heading font-semibold text-lg text-foreground mb-3">{project.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs px-2.5 py-1 rounded-md bg-secondary text-muted-foreground"
-                  >
-                    {t}
-                  </span>
-                ))}
+              {/* Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-cyber-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="relative z-10 flex flex-col flex-1">
+                <motion.div
+                  whileHover={{ rotate: -10, scale: 1.15 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors"
+                >
+                  <project.icon className="w-6 h-6 text-primary" />
+                </motion.div>
+                <h3 className="font-heading font-semibold text-lg text-foreground mb-3">{project.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((t, j) => (
+                    <motion.span
+                      key={t}
+                      initial={{ opacity: 0 }}
+                      animate={inView ? { opacity: 1 } : {}}
+                      transition={{ delay: 0.15 * i + 0.08 * j + 0.3 }}
+                      className="text-xs px-2.5 py-1 rounded-md bg-secondary text-muted-foreground"
+                    >
+                      {t}
+                    </motion.span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
