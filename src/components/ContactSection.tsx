@@ -49,7 +49,7 @@ const ContactSection = () => {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            href="https://linkedin.com/in/yash-patel"
+            href="https://www.linkedin.com/in/yash-patel-786540263"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border bg-card text-foreground font-medium text-sm hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
